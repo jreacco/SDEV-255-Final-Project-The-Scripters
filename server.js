@@ -5,6 +5,7 @@ const path = require("path");
 const cors = require("cors");
 const connectDB = require("./db");
 const Class = require("./models/Class");
+const classRoutes = require("./routes/classRoutes");
 
 connectDB();
 
@@ -27,6 +28,8 @@ app.get("/register", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+app.use("/class", classRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
