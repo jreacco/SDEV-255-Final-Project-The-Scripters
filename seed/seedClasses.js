@@ -72,8 +72,7 @@ const classesData = [
 const seedClasses = async () => {
   try {
     await connectDB();
-    // Optional: Clear existing data to avoid duplicates
-    // await Class.deleteMany({});
+    await Class.deleteMany({});
     // Insert new dummy data
     await Class.insertMany(classesData);
     console.log("Dummy data inserted successfully");
