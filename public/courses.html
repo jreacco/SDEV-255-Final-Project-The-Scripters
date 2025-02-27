@@ -43,7 +43,6 @@
 <div class="tab-content mt-3" id="teacherTabsContent">
     <!-- Course Tab -->
     <div class="tab-pane fade show active" id="course" role="tabpanel">
-        <button class="btn btn-primary mb-3" onclick="addRow()">Add Course</button>
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
@@ -66,7 +65,7 @@
                     <td>
                         <button class="btn btn-warning btn-sm" onclick="editRow(this)">Edit</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
-                        <button class="btn btn-success btn-sm" onclick="moveToPublish(this)">Publish</button>
+                        <button class="btn btn-danger btn-sm" onclick="moveToPublish(this)">Unpublish</button>
                     </td>
                 </tr>
             </tbody>
@@ -76,11 +75,13 @@
     <!-- Publish Tab -->
     <div class="tab-pane fade" id="publish" role="tabpanel">
         <p>Select courses to publish.</p>
+        <button class="btn btn-primary mb-3" onclick="addRow()">Add Course</button>
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
                     <th>Course Name</th>
                     <th>ID Number</th>
+                    <th>Date</th>
                     <th>Schedule</th>
                     <th>Description</th>
                     <th>Status</th>
@@ -92,13 +93,13 @@
                 <tr>
                     <td>Intro to Web Dev</td>
                     <td>101</td>
+                    <td>2025-03-10</td>
                     <td>Mon/Wed 10:00 AM</td>
                     <td>Introduction to web development</td>
                     <td><span class="badge bg-secondary">Unpublished</span></td>
                     <td>
                         <button class="btn btn-warning btn-sm" onclick="editPublishRow(this)">Edit</button>
                         <button class="btn btn-success btn-sm" onclick="publishCourse(this)">Publish</button>
-                        <button class="btn btn-danger btn-sm" onclick="unpublishCourse(this)">Unpublish</button>
                     </td>
                 </tr>
             </tbody>
@@ -158,36 +159,21 @@
 
 <script>
     function addRow() {
-        let courseTable = document.getElementById("courseTableBody");
+        // Creates a new row in the publisher tab.
+
         let publishTable = document.getElementById("publishTableBody");
-
-        // Create new row for the course creation table
-        let row = courseTable.insertRow();
-        row.innerHTML = `
-            <td contenteditable="true">New Course</td>
-            <td contenteditable="true">000</td>
-            <td contenteditable="true">YYYY-MM-DD</td>
-            <td contenteditable="true">Days/Time</td>
-            <td contenteditable="true">Course Description</td>
-            <td>
-                <button class="btn btn-warning btn-sm" onclick="editRow(this)">Edit</button>
-                <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
-                <button class="btn btn-success btn-sm" onclick="moveToPublish(this)">Publish</button>
-            </td>
-        `;
-
         // Create new row for the publish table with an "Unpublished" status
         let publishRow = publishTable.insertRow();
         publishRow.innerHTML = `
             <td contenteditable="true">New Course</td>
             <td contenteditable="true">000</td>
+            <td contenteditable="true">0000-00-00</td>
             <td contenteditable="true">Days/Time</td>
             <td contenteditable="true">Course Description</td>
             <td><span class="badge bg-secondary">Unpublished</span></td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editPublishRow(this)">Edit</button>
                 <button class="btn btn-success btn-sm" onclick="publishCourse(this)">Publish</button>
-                <button class="btn btn-danger btn-sm" onclick="unpublishCourse(this)">Unpublish</button>
             </td>
         `;
     }
@@ -232,13 +218,13 @@
         publishRow.innerHTML = `
             <td contenteditable="true">${courseRow.cells[0].innerText}</td>
             <td contenteditable="true">${courseRow.cells[1].innerText}</td>
+            <td contenteditable="true">${courseRow.cells[2].innerText}</td>
             <td contenteditable="true">${courseRow.cells[3].innerText}</td>
             <td contenteditable="true">${courseRow.cells[4].innerText}</td>
             <td><span class="badge bg-secondary">Unpublished</span></td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editPublishRow(this)">Edit</button>
                 <button class="btn btn-success btn-sm" onclick="publishCourse(this)">Publish</button>
-                <button class="btn btn-danger btn-sm" onclick="unpublishCourse(this)">Unpublish</button>
             </td>
         `;
         // Delete row from course list
@@ -247,7 +233,24 @@
 
     function publishCourse(button) {
         let row = button.closest("tr");
+        let courseTable = document.getElementById("courseTableBody");
         let badge = row.cells[4].getElementsByTagName("span")[0];
+
+        let publishedRow = courseTable.insertRow();
+        publishedRow.innerHTML = `
+            <td contenteditable="true">${row.cells[0].innerText}</td>
+            <td contenteditable="true">${row.cells[1].innerText}</td>
+            <td contenteditable="true">${row.cells[2].innerText}</td>
+            <td contenteditable="true">${row.cells[3].innerText}</td>
+            <td contenteditable="true">${row.cells[4].innerText}</td>
+            <td>
+                <button class="btn btn-warning btn-sm" onclick="editPublishRow(this)">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Delete</button>
+                <button class="btn btn-danger btn-sm" onclick="moveToPublish(this)">Unpublish</button>
+            </td> 
+        `;
+
+        row.remove();
 
         badge.classList.remove("bg-secondary");
         badge.classList.add("bg-success");
