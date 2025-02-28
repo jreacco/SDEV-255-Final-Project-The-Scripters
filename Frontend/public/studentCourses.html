@@ -13,7 +13,7 @@
 <!-- navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b63958;">
     <div class="container-xxl">
-        <a href="/public/index.html" class="navbar-brand text-light fw-bold">
+        <a href="index.html" class="navbar-brand text-light fw-bold">
             <i class="bi bi-book-half"></i> Catalyst Institute
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
@@ -22,18 +22,20 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="main-nav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="/public/teacher-dashboard.html" class="nav-link text-light">Dashboard</a></li>
-                <li class="nav-item"><a href="/public/courses.html" class="nav-link text-light">Manage Courses</a></li>
+                <li class="nav-item"><a href="frontend/public/teacher-dashboard.html" class="nav-link text-light">Dashboard</a></li>
+                <li class="nav-item"><a href="frontend/public/courses.html" class="nav-link text-light">Manage Courses</a></li>
                 <li class="nav-item"><a href="#" class="nav-link text-light">Student List</a></li>
-                <li class="nav-item"><a href="/public/logout.html" class="nav-link text-light">Logout</a></li>
+                <li class="nav-item"><a href="frontend/public/logout.html" class="nav-link text-light">Logout</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+<h2 class="text-left m-4">Welcome, Student</h2>
+
 <ul class="nav nav-tabs" id="teacherTabs" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="course-tab" data-bs-toggle="tab" data-bs-target="#course" type="button" role="tab">Course</button>
+        <button class="nav-link active" id="course-tab" data-bs-toggle="tab" data-bs-target="#course" type="button" role="tab">Courses</button>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="publish-tab" data-bs-toggle="tab" data-bs-target="#publish" type="button" role="tab">Publish</button>
