@@ -52,7 +52,7 @@ document.getElementById("student-signup").addEventListener("submit", function(ev
     }
 
     if (isValid) {
-        window.location.href = "student-dashboard.html"; 
+        window.location.href = "studentCourses.html"; 
     }
 });
 
@@ -106,7 +106,7 @@ document.getElementById("teacher-signup").addEventListener("submit", function(ev
     }
 
     if (isValid) {
-        window.location.href = "teacher-dashboard.html";
+        window.location.href = "teacherCourses.html";
     }
 });
 

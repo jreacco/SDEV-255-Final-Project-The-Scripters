@@ -24,9 +24,9 @@ document.getElementById("login-form").addEventListener("submit", function (event
         let userType = getUserType(email.value); // Implementing logic for school email domain
 
         if (userType === 'student') {
-            window.location.href = "/public/dashboard-student.html"; // Redirect to student dashboard
+            window.location.href = "studentCourses.html"; // Redirect to student dashboard
         } else if (userType === 'teacher') {
-            window.location.href = "/public/dashboard-teacher.html"; // Redirect to teacher dashboard
+            window.location.href = "teacherCourses.html"; // Redirect to teacher dashboard
         } else {
             alert("Invalid user type.");
         }
@@ -37,10 +37,10 @@ document.getElementById("login-form").addEventListener("submit", function (event
 // Assuming school emails use @catalyst.edu domain
 function getUserType(email) {
     // Check if email ends with @catalyst.edu for school-related email
-    const schoolDomain = "@.edu"; // Replace with your domain
+    const schoolDomain = "@catalyst.edu"; // Replace with your domain
     if (email.endsWith(schoolDomain)) {
         // Example: Based on the email prefix or pattern, determine if student or teacher
-        if (email.includes("student")) {
+        if (email.includes("student")) { // connection with database needed authentication- PADLEY
             return "student"; // A sample logic for student
         } else if (email.includes("teacher")) {
             return "teacher"; // A sample logic for teacher
