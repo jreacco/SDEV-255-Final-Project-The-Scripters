@@ -1,6 +1,12 @@
+const token = localStorage.getItem("token");
+if (!token) {
+    window.location.href = "login.html";
+}
+
 window.onload = () =>{
     getClass()
 }
+
 
 async function getClass(){
     let response = await fetch("http://localhost:3000/register")

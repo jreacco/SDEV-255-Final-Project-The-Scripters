@@ -1,3 +1,6 @@
+let token
+
+
 document.getElementById("login-form").addEventListener("submit", function (event) {
     event.preventDefault();
     let isValid = true;
@@ -20,33 +23,58 @@ document.getElementById("login-form").addEventListener("submit", function (event
     }
 
     if (isValid) {
-        // Assuming the email is validated to be a school email domain
-        let userType = getUserType(email.value); // Implementing logic for school email domain
-
-        if (userType === 'student') {
-            window.location.href = "studentCourses.html"; // Redirect to student dashboard
-        } else if (userType === 'teacher') {
-            window.location.href = "teacherCourses.html"; // Redirect to teacher dashboard
-        } else {
-            alert("Invalid user type.");
-        }
+        login(email.value, password.value);
     }
 });
+
+async function login(email, password) {
+    document.querySelector("#errorMsg").innerHTML = "";
+
+    // Make the login request
+    const response = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        body: new URLSearchParams({
+            email: email,
+            password: password
+        }),
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    });
+
+    if (response.ok) {
+        const tokenResponse = await response.json();
+        localStorage.setItem("token", tokenResponse.token);
+        localStorage.setItem("email", email);
+
+        // Determine user type (you might want to make an API call here to check user role)
+        let userType = getUserType(email);
+
+        if (userType === "student") {
+            window.location.href = "studentCourses.html"; // Redirect to student dashboard
+        } else if (userType === "teacher") {
+            window.location.href = "teacherCourses.html"; // Redirect to teacher dashboard
+        } else {
+            document.querySelector("#errorMsg").innerHTML = "Unknown user type.";
+        }
+    } else {
+        document.querySelector("#errorMsg").innerHTML = "Invalid email or password.";
+    }
+}
+
 
 // Function to determine user type (student or teacher)
 // Assuming school emails use @catalyst.edu domain
 function getUserType(email) {
-    // Check if email ends with @catalyst.edu for school-related email
-    const schoolDomain = "@catalyst.edu"; // Replace with your domain
-    if (email.endsWith(schoolDomain)) {
-        // Example: Based on the email prefix or pattern, determine if student or teacher
-        if (email.includes("student")) { // connection with database needed authentication- PADLEY
-            return "student"; // A sample logic for student
-        } else if (email.includes("teacher")) {
-            return "teacher"; // A sample logic for teacher
-        }
+    const studentDomain = "@catalyst.edu"; 
+    const teacherDomain = "@c.edu"
+    if (email.endsWith(studentDomain)) {
+        return "student";
     }
-    return "unknown"; // Return "unknown" if user type is unrecognized
+    if (email.endsWith(teacherDomain)) {
+        return "teacher";
+    }
+    return "unknown"; 
 }
 
 // Forgot Password functionality (Placeholder)
