@@ -13,6 +13,7 @@ Add the `.env` file you have for the project to the project root.
 ```
 MONGO_URI="your_mongo_connection_string"
 PORT=3000
+JWT_SECRET=supersecret
 ```
 
 ### Seed the Database
