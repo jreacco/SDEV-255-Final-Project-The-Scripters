@@ -6,6 +6,7 @@ const cors = require("cors");
 const connectDB = require("./db");
 const Class = require("./models/Class");
 const classRoutes = require("./routes/classRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 connectDB();
 
@@ -14,6 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(express.static("public"));
+
+
 
 app.get("/index", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
@@ -30,6 +33,7 @@ app.get("/register", async (req, res) => {
 });
 
 app.use("/class", classRoutes);
+app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
