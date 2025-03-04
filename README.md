@@ -16,4 +16,14 @@ PORT=3000
 JWT_SECRET=supersecret
 ```
 
-### Seed the Datab
+### Seed the Database
+
+Run the seed file to insert the initial dummy data into the MongoDB database if the database hasn't been seeded yet.
+
+```
+node seed/seedClasses.js
+```
+
+### Run the Server
+
+`nodemon start`
